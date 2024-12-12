@@ -2,7 +2,9 @@
   <v-app>
     <v-main>
       <Header/>
-      <Content/>
+      <Content
+        :score="0"
+      />
     </v-main>
   </v-app>
 </template>
