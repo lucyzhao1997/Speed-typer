@@ -20,7 +20,7 @@ export default {
   },
     methods: {
         reloadTiming(){
-            
+            console.log("reloadTiming hit")
         }
     }
 }

@@ -3,7 +3,6 @@
     <v-main>
       <Header/>
       <Content
-        :score="0"
       />
     </v-main>
   </v-app>
