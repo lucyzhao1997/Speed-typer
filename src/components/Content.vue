@@ -36,6 +36,12 @@ export default {
       isGameActive: true,
     };
   },
+  watch: {
+    dLevel(newLevel) {
+      this.startTime = this.getStartTime(newLevel); // React to difficulty change
+      this.initializeGame(); // Reset the game state
+    }
+  },
   created() {
     this.startTime = this.getStartTime(); // Initialize startTime based on difficulty
     this.initializeGame();
@@ -47,6 +53,8 @@ export default {
   },
   methods: {
     initializeGame() {
+      this.score= 0;
+      this.isGameActive =true;
       this.timeLeft = this.getStartTime() / 1000;
 
       // Start the countdown
@@ -60,7 +68,9 @@ export default {
     },
     handleCountdownFinish() {
       this.isGameActive = false;
-      this.$router.push({ name: 'game-over' }); // Redirect to GameOver page
+      this.$router.push(
+        { name: 'game-over' , 
+          query: { score: this.score }}); // Redirect to GameOver page
     },
     updateScore() {
       this.score++;
@@ -75,9 +85,9 @@ export default {
       if (this.dLevel === 'Easy') {
         return 5000; // 60 seconds
       } else if (this.dLevel === 'Medium') {
-        return 45000; // 45 seconds
+        return 7000; // 45 seconds
       } else if (this.dLevel === 'Hard') {
-        return 30000; // 30 seconds
+        return 8000; // 30 seconds
       }
     },
   },

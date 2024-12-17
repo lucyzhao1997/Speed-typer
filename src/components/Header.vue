@@ -3,6 +3,7 @@
     <v-container class="d-flex justify-center">
         <v-spacer></v-spacer>
       <v-select v-model="difficulty"
+      @change="emitLevelChange"
       :items="['Easy', 'Medium', 'Hard']"
       label="Difficulty"
       class="mx-auto"
@@ -17,9 +18,14 @@
   export default {
     data() {
       return {
-        difficulty: 'Medium', // default value
+        difficulty: 'Easy', 
       };
     },
+    methods:{
+      emitLevelChange(){
+        this.$emit('level-change', this.difficulty);
+      }
+    }
   };
   </script>
   

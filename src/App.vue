@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <Header/>
-      <router-view />
+      <Header @level-change="handleDifficultyChange"/>
+      <router-view :key="routerKey" :dLevel = "currLevel"/>
     </v-main>
   </v-app>
 </template>
@@ -17,8 +17,17 @@ export default {
     Header
   },
 
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      currLevel: 'Easy',
+      routerKey: 0, 
+    };
+  },
+  methods: {
+    handleDifficultyChange(level) {
+      this.currLevel = level; // Update level
+      this.routerKey++; // Re-render Content via router-view
+    },
+  },
 }
 </script>
