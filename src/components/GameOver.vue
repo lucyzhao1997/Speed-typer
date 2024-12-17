@@ -20,6 +20,7 @@ export default {
   },
     methods: {
         reloadTiming(){
+            this.$router.push({ name: 'Game' });
             console.log("reloadTiming hit")
         }
     }
