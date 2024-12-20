@@ -26,7 +26,7 @@ export default {
   methods: {
     handleDifficultyChange(level) {
       this.currLevel = level; // Update level
-      this.routerKey++; // Re-render Content via router-view
+      this.routerKey+=1; // Re-render Content via router-view
     },
   },
 }
