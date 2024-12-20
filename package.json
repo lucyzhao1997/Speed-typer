@@ -11,6 +11,7 @@
     "@chenfengyuan/vue-countdown": "^2.1.2",
     "@mdi/font": "5.9.55",
     "core-js": "^3.8.3",
+    "random-words": "^2.0.1",
     "roboto-fontface": "*",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",

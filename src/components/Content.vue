@@ -5,9 +5,9 @@
       <h2>👩‍💻 Speed Typer 👨‍💻</h2>
       <small>Type the following:</small>
 
-      <h1 id="word">Example</h1>
+      <h1 id="word">{{randomWord}}</h1>
 
-      <v-text-field hide-details="auto" label="Insert the word here"></v-text-field>
+      <v-text-field v-model="currTyping" hide-details="auto" label="Insert the word here"></v-text-field>
 
       <p class="time-container">Time left: {{ timeLeft }} s</p>
 
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { generate } from "random-words";
 export default {
   props: {
     dLevel: {
@@ -30,6 +31,8 @@ export default {
   },
   data() {
     return {
+      currTyping: '',
+      randomWord: generate({minLength: 5, maxLength: 13 }),
       score: 0,
       startTime: 60000, // Initial time in milliseconds
       timeLeft: 60,
@@ -39,12 +42,15 @@ export default {
   watch: {
     dLevel(newLevel) {
       this.startTime = this.getStartTime(newLevel); // React to difficulty change
-      this.initializeGame(); // Reset the game state
+      this.refreshGame(); // Reset the game state
+    },
+    currTyping(newVal) {
+      this.compareWords(newVal);
     }
   },
   created() {
     this.startTime = this.getStartTime(); // Initialize startTime based on difficulty
-    this.initializeGame();
+    this.refreshGame();
   },
   beforeUnmount() {
     if (this.timer) {
@@ -53,11 +59,13 @@ export default {
   },
   methods: {
     initializeGame() {
-      this.score= 0;
+      if (this.timer) {
+        clearInterval(this.timer);
+      }
       this.isGameActive =true;
       this.timeLeft = this.getStartTime() / 1000;
 
-      // Start the countdown
+     
       this.timer = setInterval(() => {
         if (this.timeLeft > 0) {
           this.timeLeft--;
@@ -70,26 +78,36 @@ export default {
       this.isGameActive = false;
       this.$router.push(
         { name: 'game-over' , 
-          query: { score: this.score }}); // Redirect to GameOver page
+          query: { score: this.score }}); 
     },
     updateScore() {
       this.score++;
     },
     refreshGame() {
-      this.score = 0; // Reset the score
-      this.startTime = this.getStartTime(); // Reset the timer
-      this.isGameActive = true; // Reactivate the game
-      this.initializeGame(); // Restart the game
+      this.score = 0; 
+      this.startTime = this.getStartTime(); 
+      this.isGameActive = true;
+      this.initializeGame(); 
     },
     getStartTime() {
       if (this.dLevel === 'Easy') {
-        return 5000; // 60 seconds
+        return 10000; 
       } else if (this.dLevel === 'Medium') {
-        return 7000; // 45 seconds
+        return 7000; 
       } else if (this.dLevel === 'Hard') {
-        return 8000; // 30 seconds
+        return 5000; 
+      }else if (this.dLevel === 'Challenger') {
+        return 3000; 
       }
     },
+    compareWords(val) {
+      if (val == this.randomWord){
+        this.currTyping = '';
+        this.randomWord = generate({minLength: 5, maxLength: 13 }),
+        this.updateScore();
+        this.initializeGame();
+      }
+    }
   },
 };
 </script>

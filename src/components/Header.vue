@@ -4,7 +4,7 @@
         <v-spacer></v-spacer>
       <v-select  
       v-model="difficulty"
-        :items="['Easy', 'Medium', 'Hard']"
+        :items="['Easy', 'Medium', 'Hard', 'Challenger']"
         label="Difficulty"
         @update:modelValue="emitLevelChange"
       style="width: 150px; margin-top: 20px;"></v-select>
