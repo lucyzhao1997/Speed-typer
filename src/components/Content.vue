@@ -34,14 +34,14 @@ export default {
       currTyping: '',
       randomWord: generate({minLength: 5, maxLength: 13 }),
       score: 0,
-      startTime: 60000, // Initial time in milliseconds
+      startTime: 60000, 
       timeLeft: 60,
       isGameActive: true,
     };
   },
   watch: {
     dLevel(newLevel) {
-      this.startTime = this.getStartTime(newLevel); // React to difficulty change
+      this.startTime = this.getStartTime(newLevel); 
       this.refreshGame(); // Reset the game state
     },
     currTyping(newVal) {
