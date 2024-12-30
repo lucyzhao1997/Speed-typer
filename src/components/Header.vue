@@ -12,7 +12,6 @@
     </v-container>
   </v-app-bar>
   </template>
-  
   <script>
   export default {
     data() {
